@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main extends JPanel {
@@ -38,7 +39,7 @@ public class Main extends JPanel {
 
     void moveUp() throws Exception {
 
-        if (data[y-1][x].equals("B")) return;
+        if (y-1 < 0 || !(data[y-1][x].equals("G"))) return;
 
         data[y][x] = "G";
         y--;
@@ -47,7 +48,7 @@ public class Main extends JPanel {
 
     void moveDown() throws Exception {
 
-        if (data[y+1][x].equals("B")) return;
+        if (y+1 > data.length-1 || !(data[y+1][x].equals("G"))) return;
 
         data[y][x] = "G";
         y++;
@@ -56,7 +57,7 @@ public class Main extends JPanel {
 
     void moveLeft() throws Exception {
 
-        if (data[y][x-1].equals("B")) return;
+        if (x-1 < 0 || !(data[y][x-1].equals("G"))) return;
 
         data[y][x] = "G";
         x--;
@@ -65,7 +66,7 @@ public class Main extends JPanel {
 
     void moveRight() throws Exception {
 
-        if (data[y][x+1].equals("B")) return;
+        if (x+1 > data[0].length-1 || !(data[y][x+1].equals("G"))) return;
 
         data[y][x] = "G";
         x++;
@@ -101,11 +102,27 @@ public class Main extends JPanel {
 
         System.out.println("start game");
 
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);
         int direction;
 
         while ((direction = sc.nextInt()) != 0) {
            move(direction);
+        }*/
+
+        Random random = new Random();
+
+        int step = 0;
+        while (step < 20) {
+
+            int direction = random.nextInt(3)+1;
+            move(direction);
+
+            System.out.println(direction);
+
+            Thread.sleep(1000);
+
+            step++;
+
         }
 
         System.out.println("game over");
